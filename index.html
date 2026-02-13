@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full w-full">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://lucide.dev/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0ea5e9" />
+    <meta
+      name="description"
+      content="Gia Sư Toán THCS - Học toán vui vẻ cùng AI"
+    />
+    <title>Gia Sư Toán THCS</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- KaTeX CSS for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3b82f6', // Blue 500
+              secondary: '#10b981', // Emerald 500
+              accent: '#f59e0b', // Amber 500
+              background: '#f8fafc', // Slate 50
+            },
+            fontFamily: {
+              sans: ['Nunito', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'], // Switched to Nunito for a friendlier, rounder look
+            },
+            backgroundImage: {
+              'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+              'hero-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Styles specifically for PDF generation via Print */
+      @media print {
+        @page {
+          size: A4;
+          margin: 2cm;
+        }
+        body {
+          background-color: white !important;
+          -webkit-print-color-adjust: exact;
+        }
+        /* Hide UI elements */
+        .no-print {
+          display: none !important;
+        }
+        /* Ensure chat content expands fully */
+        .print-content {
+          display: block !important;
+          height: auto !important;
+          overflow: visible !important;
+          max-height: none !important;
+          position: static !important;
+          width: 100% !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          border: none !important;
+          box-shadow: none !important;
+        }
+        /* Fix text colors for printing */
+        .print-content * {
+          color: black !important;
+        }
+      }
+
+      /* Core layout fixes */
+      html {
+        height: 100%;
+        width: 100%;
+        overflow: hidden; /* Prevent html scroll */
+      }
+      
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Prevent body scroll */
+        overscroll-behavior: none; /* Prevent pull-to-refresh rubber banding */
+        background-color: #f8fafc;
+        background-image: 
+          radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%), 
+          radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
+          radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.05) 0px, transparent 50%);
+        background-attachment: fixed;
+      }
+      
+      /* Dark mode body background */
+      html.dark body {
+        background-color: #0f172a; /* slate-900 */
+        background-image: 
+          radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.05) 0px, transparent 50%), 
+          radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.05) 0px, transparent 50%),
+          radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.02) 0px, transparent 50%);
+      }
+      
+      #root {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Custom scrollbar for chat */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: rgba(148, 163, 184, 0.3);
+        border-radius: 20px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(148, 163, 184, 0.5);
+      }
+      
+      /* Glassmorphism utilities */
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      
+      .dark .glass {
+        background: rgba(15, 23, 42, 0.7);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-markdown": "https://esm.sh/react-markdown@^10.1.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "remark-math": "https://esm.sh/remark-math@^6.0.0",
+    "rehype-katex": "https://esm.sh/rehype-katex@^7.0.1",
+    "html2canvas": "https://esm.sh/html2canvas@^1.4.1",
+    "jspdf": "https://esm.sh/jspdf@^2.5.1",
+    "katex/": "https://esm.sh/katex@^0.16.28/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-slate-50 text-slate-800 antialiased selection:bg-cyan-200 selection:text-cyan-900 dark:bg-slate-900 dark:text-slate-100 dark:selection:bg-cyan-900 dark:selection:text-cyan-100">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
